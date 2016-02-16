@@ -70,34 +70,34 @@ for example:
 
 1. Set the BDK path:
 
-    export BDK_PATH=<BDK install dir>
+        export BDK_PATH=<BDK install dir>
 
 1. Create the project folder using the BDK:
 
-    ${BDK_PATH}/tools/bdk/brunch/brunch product create ~/products/jacksmart dragonboard
+        ${BDK_PATH}/tools/bdk/brunch/brunch product create ~/products/jacksmart dragonboard
 
 1. Copy the jacksmart brillo sources into the product folder
 
-    cp -r <path-to>/jacksmart/brillo/* ./jacksmart/
+        cp -r <path-to>/jacksmart/brillo/* ./jacksmart/
 
 1. Configure the product
 
-    . envsetup.sh
-    m -j32
+        . envsetup.sh
+        m -j32
 
 1. Boot your device into fastboot mode by holding down the volume key while
 powering on or calling `adb reboot bootloader`. Check the device is in
 fastboot mode with:
 
-    fastboot devices
+        fastboot devices
 
 1. Flash the firmware to your device:
 
-    provision
+        provision
 
 1. Reboot your device:
 
-    fastboot reboot
+        fastboot reboot
 
 ## Upgrading the hardware to a pumpkin ##
 
