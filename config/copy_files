@@ -1,0 +1,10 @@
+
+# Format:
+# path-in-product-dir:path-to-install-in-device
+# E.g., weaved.conf:system/etc/weaved/weaved.conf
+weaved.conf:system/etc/weaved/weaved.conf
+src/jacksmart/prebuilts/boot.mp3:data/boot.mp3
+src/jacksmart/prebuilts/out.wav:data/out.wav
+src/jacksmart/prebuilts/testmixer.sh:data/testmixer.sh
+src/jacksmart/prebuilts/2553.mp3:data/2553.mp3
+
