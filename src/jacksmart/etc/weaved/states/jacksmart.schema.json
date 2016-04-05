@@ -1,9 +1,0 @@
-{
-  "_jacksmart": {
-    "_playingState": {
-      "enum": ["idle", "playing"],
-      "default": "idle"
-    },
-    "_lights": {"items": "boolean"}
-  }
-}

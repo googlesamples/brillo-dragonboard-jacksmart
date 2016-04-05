@@ -159,12 +159,10 @@ overview shows you the project structure for the JackSmart pumpkin demo:
     ├── src - The sample source folder, contains the test app and Weave service
     │   └── jacksmart
     │       ├── Android.mk - Local make rules for this app's modules
-    │       ├── etc - file structure for Weave commands and states
+    │       ├── etc - file structure for Weave traits
     │       │   └── weaved
-    │       │       ├── commands
-    │       │       │   └── jacksmart.json
-    │       │       └── states
-    │       │           └── jacksmart.schema.json
+    |       │       └── traits
+    |       |           └── sputnik.json
     │       ├── include - Shared includes local to this app
     │       │   └── peripherals - Basic shared includes for peripheral types
     │       │       ├── gpio - Contains GPIO peripheral implementations

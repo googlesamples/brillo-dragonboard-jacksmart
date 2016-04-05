@@ -13,6 +13,7 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 #
+
 LOCAL_PATH := $(call my-dir)
 
 # Brillo service
@@ -21,7 +22,7 @@ LOCAL_MODULE := jacksmart
 LOCAL_C_INCLUDES := external/tinyalsa/include external/gtest/include \
   $(TOP)/frameworks/av/media/libstagefright \
   $(TOP)/frameworks/native/include/media/openmax \
-  $(TOP)/device/generic/brillo/pts/audio/common
+  $(TOP)/device/generic/brillo/pts/audio/common \
 LOCAL_CFLAGS := -Wall -Werror -Wno-sign-promo
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_INIT_RC := jacksmart.rc
@@ -34,8 +35,10 @@ LOCAL_SRC_FILES := \
     jacksmart.cc
 LOCAL_SHARED_LIBRARIES := libbrillo libbrillo-dbus libbrillo-stream \
   libchrome libchrome-dbus libdbus libweaved libtinyalsa \
-  libstagefright libstagefright_foundation libutils libbase libbinder libmedia
-LOCAL_RTTI_FLAG := -frtti
+  libstagefright libstagefright_foundation libutils libbase libbinder \
+  libbrillo-binder libmedia
+#LOCAL_RTTI_FLAG := -frtti
+LOCAL_RTTI_FLAG := -fno-rtti
 include $(BUILD_EXECUTABLE)
 
 
@@ -54,9 +57,9 @@ LOCAL_SRC_FILES:= \
     include/peripherals/spi/apa102.cc \
     testsmart.cc
 LOCAL_MODULE := jacksmart-test
-LOCAL_SHARED_LIBRARIES:= libcutils libutils libtinyalsa libbrillo libbase \
-    libstagefright libstagefright_foundation libutils libbase libbinder \
-    libmedia
+LOCAL_SHARED_LIBRARIES := libbrillo libbrillo-dbus libbrillo-stream \
+  libchrome libchrome-dbus libdbus libweaved libtinyalsa \
+  libstagefright libstagefright_foundation libutils libbase libbinder libmedia
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
 
@@ -65,13 +68,6 @@ include $(BUILD_EXECUTABLE)
 include $(CLEAR_VARS)
 LOCAL_MODULE := jacksmart.json
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/weaved/commands
-LOCAL_SRC_FILES := etc/weaved/commands/$(LOCAL_MODULE)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := jacksmart.schema.json
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/weaved/states
-LOCAL_SRC_FILES := etc/weaved/states/$(LOCAL_MODULE)
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/weaved/traits
+LOCAL_SRC_FILES := etc/weaved/traits/$(LOCAL_MODULE)
 include $(BUILD_PREBUILT)

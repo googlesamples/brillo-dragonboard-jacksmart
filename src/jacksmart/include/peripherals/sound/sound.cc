@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,13 +26,13 @@
 #include <media/stagefright/MediaExtractor.h>
 #include <media/stagefright/MetaData.h>
 #include <media/stagefright/OMXClient.h>
-#include <media/stagefright/OMXCodec.h>
+#include <media/stagefright/SimpleDecodingSource.h>
+#include <media/stagefright/ACodec.h>
 #include <media/stagefright/foundation/AMessage.h>
 
 #include "alsasound.h"
 #include "include/MP3Extractor.h"
 #include "include/WAVExtractor.h"
-
 
 Sound::Sound() {
   player_ = new AudioPlayer(NULL);
@@ -66,7 +66,10 @@ status_t Sound::PlaySound(std::string filePath) {
 
 
 status_t Sound::PlayWavSound(const char* filename) {
-  CHECK(filename != NULL);
+  if (filename == NULL) {
+    return -1;
+  }
+
   OMXClient client;
   status_t status = client.connect();
   if (status != OK) {
@@ -86,9 +89,7 @@ status_t Sound::PlayWavSound(const char* filename) {
   sp<MediaSource> media_source = media_extractor->getTrack(0);
 
   // Decode wav.
-  sp<MetaData> meta_data = media_source->getFormat();
-  sp<MediaSource> decoded_source = OMXCodec::Create(
-      client.interface(), meta_data, false, media_source);
+  sp<MediaSource> decoded_source = SimpleDecodingSource::Create(media_source);
 
   // Play wav.
   player_->setSource(decoded_source);
@@ -103,7 +104,9 @@ status_t Sound::PlayWavSound(const char* filename) {
 
 
 status_t Sound::PlayMp3Sound(const char* filename) {
-  CHECK(filename != NULL);
+  if (filename == NULL) {
+    return -1;
+  }
   OMXClient client;
   status_t status = client.connect();
   if (status != OK) {
@@ -124,9 +127,7 @@ status_t Sound::PlayMp3Sound(const char* filename) {
   sp<MediaSource> media_source = media_extractor->getTrack(0);
 
   // Decode mp3.
-  sp<MetaData> meta_data = media_source->getFormat();
-  sp<MediaSource> decoded_source = OMXCodec::Create(
-      client.interface(), meta_data, false, media_source);
+  sp<MediaSource> decoded_source = SimpleDecodingSource::Create(media_source);
 
   // Play mp3.
   player_->setSource(decoded_source);
